@@ -136,12 +136,13 @@ GameObject:
   - component: {fileID: 390065496}
   - component: {fileID: 390065495}
   - component: {fileID: 390065494}
+  - component: {fileID: 390065499}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!143 &390065494
 CharacterController:
@@ -155,7 +156,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 2
-  m_Radius: 1
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -238,6 +239,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &390065499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390065493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fd51edf6c4c1ff46a83f28d48bc8435, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deadFlag: 0
 --- !u!1 &1142986767
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,7 +269,7 @@ GameObject:
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1142986768
 Transform:
@@ -285,32 +299,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: Checking for updates...
   sections: 01010101
-  customRes: {x: 540, y: 337}
-  resolutionFactor: 2
-  limitFramerate: 60
+  customRes: {x: 878, y: 400}
+  resolutionFactor: 1
+  limitFramerate: -1
   skipFrames: 0
   affineMapping: 1
-  polygonalDrawDistance: 30
-  vertexInaccuracy: 70
-  polygonInaccuracy: 0
+  polygonalDrawDistance: 0
+  vertexInaccuracy: 30
+  polygonInaccuracy: 2
   colorDepth: 5
   scanlines: 0
-  scanlineIntensity: 2
+  scanlineIntensity: 5
   ditherTexture: {fileID: 0}
   dithering: 1
   ditherThreshold: 1
-  ditherIntensity: 12
-  maxDarkness: 10
+  ditherIntensity: 2
+  maxDarkness: 20
   subtractFade: 0
   favorRed: 1
-  worldSpaceSnapping: 1
+  worldSpaceSnapping: 0
   postProcessing: 1
   verticalScanlines: 1
   shadowIntensity: 0.5
   downscale: 0
   snapCamera: 0
   camInaccuracy: 0.05
-  camSnapping: 1
+  camSnapping: 0
   shadowType: 0
   ditherSky: 0
   ditherType: 1
@@ -569,7 +583,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2047152448
 Transform:
