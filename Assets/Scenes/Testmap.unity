@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f729d4f54d22f64a8f0fae3b3b1f2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
+  moveSpeed: 5
   jumpHeight: 0
   verticalAxis: 0
   horizontalAxis: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: Checking for updates...
   sections: 01010101
-  customRes: {x: 540, y: 313}
+  customRes: {x: 474, y: 270}
   resolutionFactor: 2
   limitFramerate: 60
   skipFrames: 0
@@ -572,7 +572,7 @@ Transform:
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2047152447
 GameObject:
