@@ -50,7 +50,7 @@ public class MovementSystem : MonoBehaviour {
 
 		if (jumping == true) 
 		{
-			upwardVelocity += jumpHeight * -0.3f * gravity;
+			upwardVelocity += jumpHeight * -0.32f * gravity;
 			jumping = false;
 		}
 
