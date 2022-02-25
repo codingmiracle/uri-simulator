@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 390065495}
   - component: {fileID: 390065494}
   - component: {fileID: 390065499}
+  - component: {fileID: 390065500}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -258,7 +259,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deadFlag: 0
-
+--- !u!114 &390065500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390065493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 416a23ebea2beec41a666536ca40c806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpheight: 0
+  hightmeasured: 0
 --- !u!1 &1142986767
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,14 +320,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cfuStatus: Checking for updates...
   sections: 01010101
-
-
-  customRes: {x: 392, y: 209}
-
-
-  resolutionFactor: 2
-  limitFramerate: 60
-
+  customRes: {x: 784, y: 418}
+  resolutionFactor: 1
+  limitFramerate: -1
   skipFrames: 0
   affineMapping: 1
   polygonalDrawDistance: 0
