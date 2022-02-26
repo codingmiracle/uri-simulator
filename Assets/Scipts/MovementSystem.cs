@@ -33,7 +33,10 @@ public class MovementSystem : MonoBehaviour {
 		verticalAxis = Input.GetAxisRaw("Vertical");
 		horizontalAxis = Input.GetAxisRaw("Horizontal");
 		if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
+		{
 			jumping = true;
+		}
+			
 
 		if (Input.GetKeyDown(KeyCode.LeftShift))
             StartSprint();
@@ -58,8 +61,9 @@ public class MovementSystem : MonoBehaviour {
 			jumping = false;
 		}
 
-		cc.Move((transform.forward * verticalAxis + transform.right * horizontalAxis).normalized * moveSpeed * Time.deltaTime);
-		cc.Move(Vector3.up * upwardVelocity);
+		
+		cc.Move((transform.forward * verticalAxis + transform.right * horizontalAxis).normalized * moveSpeed * Time.deltaTime + transform.up * upwardVelocity);
+		
     }
 
 	private void StartSprint()
@@ -74,7 +78,7 @@ public class MovementSystem : MonoBehaviour {
 
 	private void InitJumpBoost()
 	{
-		jumpBoost = Mathf.Sqrt(((jumpHeight+1) * -0.1f * gravity)/2);	//Wierd Math, but it works. Trust me
+		jumpBoost = Mathf.Sqrt(((jumpHeight+0.7f) * -0.1f * gravity)/2);	//Wierd Math, but it works. Trust me
 	}
 
 

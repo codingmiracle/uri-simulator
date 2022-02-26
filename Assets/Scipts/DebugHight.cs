@@ -7,6 +7,7 @@ public class DebugHight : MonoBehaviour
 
     public float jumpheight;
     public bool hightmeasured;
+    public float timejumped;
 
     private CharacterController cc;
     void Start () 
@@ -22,6 +23,7 @@ public class DebugHight : MonoBehaviour
         if (!cc.isGrounded) 
 		{
             hightmeasured = false;
+            timejumped += Time.deltaTime;
 			if(transform.localPosition.y >= jumpheight)
             {
                jumpheight = transform.localPosition.y;
@@ -30,8 +32,10 @@ public class DebugHight : MonoBehaviour
         if(cc.isGrounded && hightmeasured == false)
         {
             Debug.Log(jumpheight-1.08);
+            Debug.Log(timejumped);
             hightmeasured = true;
             jumpheight = 0;
+            timejumped = 0;
         }
     }
 }

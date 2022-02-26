@@ -177,6 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpHeight: 0
+  jumpBoost: 0
   verticalAxis: 0
   horizontalAxis: 0
   upwardVelocity: 0
@@ -273,6 +274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpheight: 0
   hightmeasured: 0
+  timejumped: 0
 --- !u!1 &1142986767
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b416fbce5a38cc47a3a1e709f95f5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cfuStatus: Checking for updates...
+  cfuStatus: PSXEffects v1.15.5 - update available (click to update).
   sections: 01010101
   customRes: {x: 784, y: 418}
   resolutionFactor: 1
