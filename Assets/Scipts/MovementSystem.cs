@@ -46,6 +46,7 @@ public class MovementSystem : MonoBehaviour {
 
 	private void FixedUpdate() // Es ist besser alle Bewegungen im FixedUpdate zu machen, da es nicht jeden Frame passiert => mehr Zeit
     {
+		InitJumpBoost();
 		if (cc.isGrounded) 
 		{
 			upwardVelocity = -0.1f;	// Damit der Spieler am Boden bleibt, wenn er am boden ist
