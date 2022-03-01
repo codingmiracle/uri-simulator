@@ -22,7 +22,7 @@ public class PickupCursor : MonoBehaviour
 
         Debug.DrawRay(transform.position , transform.forward * 3.5f, Color.blue);
 
-        if (Physics.Raycast(transform.position,  transform.forward, out hit, 3.5f) && (hit.collider.CompareTag("Pickup")))
+        if (Physics.Raycast(transform.position,  transform.forward, out hit, 3.5f) && (hit.collider.CompareTag("Collectible")))
         {
             print("Found an object - distance: " + hit.distance);
             Default.SetActive(false);
