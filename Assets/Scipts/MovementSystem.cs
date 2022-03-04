@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class MovementSystem : MonoBehaviour {
 
-	public float moveSpeed;
-	public float jumpHeight;
+	public float moveSpeed = 5f;
+	public float jumpHeight = 1f;	// jumpHieght indicates, how many Units high the player can cofortably jump.
 	public float jumpBoost;
 	public float verticalAxis;
 	public float horizontalAxis;
 	public float upwardVelocity;
 	public float gravity;
+	public float currentspeedhorizontal;
+	public float currentspeedvertical;
+	public float speedsmoothvelocity1;
+	public float speedsmoothvelocity2;
 
 	public bool jumping;
 	
@@ -19,11 +23,10 @@ public class MovementSystem : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{	
-		cc = GetComponent<CharacterController>();
-		moveSpeed = 5f;
-		jumpHeight = 1f;	// jumpHieght indicates, how many Units high the player can cofortably jump.
+		cc = GetComponent<CharacterController>();	
 		gravity = -1f;
 		jumping = false;
+		jumpHeight = 1f;	// jumpHieght indicates, how many Units high the player can cofortably jump.
 		InitJumpBoost();
 	}
 	
@@ -47,6 +50,12 @@ public class MovementSystem : MonoBehaviour {
 	private void FixedUpdate() // Es ist besser alle Bewegungen im FixedUpdate zu machen, da es nicht jeden Frame passiert => mehr Zeit
     {
 		InitJumpBoost();
+		
+			currentspeedhorizontal = Mathf.SmoothDamp (currentspeedhorizontal , horizontalAxis, ref speedsmoothvelocity1, 0.1f);
+			currentspeedvertical = Mathf.SmoothDamp (currentspeedvertical , verticalAxis, ref speedsmoothvelocity2, 0.1f);
+			currentspeedvertical = Mathf.Round(currentspeedvertical*1000)/1000;
+			currentspeedhorizontal = Mathf.Round(currentspeedhorizontal*1000)/1000;
+		
 		if (cc.isGrounded) 
 		{
 			upwardVelocity = -0.1f;	// Damit der Spieler am Boden bleibt, wenn er am boden ist
@@ -63,7 +72,7 @@ public class MovementSystem : MonoBehaviour {
 		}
 
 		
-		cc.Move((transform.forward * verticalAxis + transform.right * horizontalAxis).normalized * moveSpeed * Time.deltaTime + transform.up * upwardVelocity);
+		cc.Move((transform.forward * currentspeedvertical + transform.right * currentspeedhorizontal) * moveSpeed * Time.deltaTime + transform.up * upwardVelocity);
 		
     }
 
