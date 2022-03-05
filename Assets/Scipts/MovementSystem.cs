@@ -4,30 +4,27 @@ using UnityEngine;
 
 public class MovementSystem : MonoBehaviour {
 
-	public float moveSpeed = 5f;
-	public float jumpHeight = 1f;	// jumpHieght indicates, how many Units high the player can cofortably jump.
-	public float jumpBoost;
-	public float verticalAxis;
-	public float horizontalAxis;
+	
+	public float jumpHeight;	
 	public float upwardVelocity;
 	public float gravity;
+
+	public float moveSpeed = 5f;
+	public float rampuptime = 0.1f;
+	public float verticalAxis;
+	public float horizontalAxis;
 	public float currentspeedhorizontal;
 	public float currentspeedvertical;
-	public float speedsmoothvelocity1;
+	public float speedsmoothvelocity1;	//wird gebraucht um die smoothness der Bewegung zu speichern, agiert wie eine Art laufvariable für die Funktion Mathf.SmoothDamp
 	public float speedsmoothvelocity2;
-
-	public bool jumping;
 	
 	private CharacterController cc;
 
-	// Use this for initialization
 	void Start () 
 	{	
 		cc = GetComponent<CharacterController>();	
-		gravity = -1f;
-		jumping = false;
-		jumpHeight = 1f;	// jumpHieght indicates, how many Units high the player can cofortably jump.
-		InitJumpBoost();
+		jumpHeight = 1f;
+		gravity = -30f;	
 	}
 	
 	// Update is called once per frame
@@ -35,12 +32,9 @@ public class MovementSystem : MonoBehaviour {
 	 {
 		verticalAxis = Input.GetAxisRaw("Vertical");
 		horizontalAxis = Input.GetAxisRaw("Horizontal");
-		if (Input.GetKeyDown(KeyCode.Space) && cc.isGrounded)
-		{
-			jumping = true;
-		}
-			
 
+		if (Input.GetKeyDown(KeyCode.Space))
+			jump();
 		if (Input.GetKeyDown(KeyCode.LeftShift))
             StartSprint();
         if (Input.GetKeyUp(KeyCode.LeftShift))
@@ -49,47 +43,37 @@ public class MovementSystem : MonoBehaviour {
 
 	private void FixedUpdate() // Es ist besser alle Bewegungen im FixedUpdate zu machen, da es nicht jeden Frame passiert => mehr Zeit
     {
-		InitJumpBoost();
+		//erhöht die geschwindigkeit langsam, was der Bewegung ein smootheres gefühl gibt
+		currentspeedhorizontal = Mathf.SmoothDamp (currentspeedhorizontal , horizontalAxis*moveSpeed, ref speedsmoothvelocity1, rampuptime);
+		currentspeedvertical = Mathf.SmoothDamp (currentspeedvertical , verticalAxis*moveSpeed, ref speedsmoothvelocity2, rampuptime);	
+		//float currentspeedverticalrounded = Mathf.Round(currentspeedvertical*1000)/1000;
+		//float currentspeedhorizontalrounded = Mathf.Round(currentspeedhorizontal*1000)/1000;
+
+		upwardVelocity += Time.deltaTime * gravity;
 		
-			currentspeedhorizontal = Mathf.SmoothDamp (currentspeedhorizontal , horizontalAxis, ref speedsmoothvelocity1, 0.1f);
-			currentspeedvertical = Mathf.SmoothDamp (currentspeedvertical , verticalAxis, ref speedsmoothvelocity2, 0.1f);
-			currentspeedvertical = Mathf.Round(currentspeedvertical*1000)/1000;
-			currentspeedhorizontal = Mathf.Round(currentspeedhorizontal*1000)/1000;
-		
+		cc.Move((transform.forward * currentspeedvertical + transform.right * currentspeedhorizontal + transform.up * upwardVelocity) * Time.deltaTime);
+		// ein problem/feature ist, dass wenn man diagonal geht, schneller ist alls wenn man einfach gerade aus geht. Das ist weil kein .normalised da ist. vielleicht wird das noch geändert.
 		if (cc.isGrounded) 
-		{
-			upwardVelocity = -0.1f;	// Damit der Spieler am Boden bleibt, wenn er am boden ist
-		}
-		else
-		{
-			upwardVelocity += Time.deltaTime * gravity;
-		}
-
-		if (jumping == true) 
-		{
-			upwardVelocity += jumpBoost;
-			jumping = false;
-		}
-
-		
-		cc.Move((transform.forward * currentspeedvertical + transform.right * currentspeedhorizontal) * moveSpeed * Time.deltaTime + transform.up * upwardVelocity);
-		
+			upwardVelocity = 0;	
     }
 
-	private void StartSprint()
+	void StartSprint()
     {
-        moveSpeed = moveSpeed * 2f;
+        moveSpeed = moveSpeed * 1.5f;
     }
 
-    private void StopSprint()
+    void StopSprint()
     {
-        moveSpeed = moveSpeed / 2f;
+        moveSpeed = moveSpeed / 1.5f;
     }
 
-	private void InitJumpBoost()
+	void jump()
 	{
-		jumpBoost = Mathf.Sqrt(((jumpHeight+0.7f) * -0.1f * gravity)/2);	//Wierd Math, but it works. Trust me
+		if (cc.isGrounded)
+		{
+			float jumpp = Mathf.Sqrt(-2 * gravity * jumpHeight);
+			upwardVelocity = jumpp;
+		}
 	}
-
 
 }

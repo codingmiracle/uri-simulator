@@ -31,8 +31,8 @@ public class DebugHight : MonoBehaviour
 		}
         if(cc.isGrounded && hightmeasured == false)
         {
-            Debug.Log(jumpheight-1.08);
-            Debug.Log(timejumped);
+            //Debug.Log(jumpheight-1.08);
+            //Debug.Log(timejumped);
             hightmeasured = true;
             jumpheight = 0;
             timejumped = 0;
