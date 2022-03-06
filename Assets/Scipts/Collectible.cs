@@ -8,10 +8,13 @@ public class Collectible : MonoBehaviour
     public GameObject Default;
     public GameObject Hand;
 
+    private Items items;
+
     void Start ()
     {
         Hand.SetActive(false);
         Default.SetActive(true);
+        items = GameObject.FindObjectOfType<Items> ();
     }
 
 
@@ -28,15 +31,45 @@ public class Collectible : MonoBehaviour
             Default.SetActive(false);
             Hand.SetActive(true);
         
-        if(Input.GetMouseButtonDown(0))
-        {
-            MeshCollider bc = hit.collider as MeshCollider;    //Das kann fix besser gelöst werden
-            if(bc != null)                                    // Mit anderem Collider sollte es auch gehen aber egal
-            {                                                //  Nicht ganz safe 
-                Destroy(bc.gameObject);
+            if(Input.GetMouseButtonDown(0))
+            {
+                MeshCollider bc = hit.collider as MeshCollider;    //Das kann fix besser gelöst werden
+                if(bc != null)                                    // Mit anderem Collider sollte es auch gehen aber egal
+                {                                                //  Nicht ganz safe 
+                    if(bc.name == "IC")
+                    {
+                        Debug.Log("IC has been collected");
+                        items.hasIC = true;
+                    }
+                    Destroy(bc.gameObject);
+                }
             }
         }
-
+        else if(Physics.Raycast(transform.position,  transform.forward, out hit, 4.5f) && (hit.collider.CompareTag("Interactable")))
+        {
+            Default.SetActive(false);
+            Hand.SetActive(true);
+        
+            if(Input.GetMouseButtonDown(0))
+            {
+                BoxCollider bc = hit.collider as BoxCollider;      //Das kann fix besser gelöst werden
+                if(bc != null)                                    // Mit anderem Collider sollte es auch gehen aber egal
+                {                                                //  Nicht ganz safe                                    
+                    if(bc.name == "solderingstation")
+                    {
+                        if(items.hasIC == true)
+                        {
+                            Debug.Log("IC has been soldered");
+                            items.icParts++;
+                            items.hasIC = false;
+                        }
+                        else
+                        {
+                            Debug.Log("no IC");
+                        }
+                    }
+                }
+            }
         }
         else
         {
