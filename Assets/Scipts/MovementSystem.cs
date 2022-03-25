@@ -9,6 +9,7 @@ public class MovementSystem : MonoBehaviour {
 	public float upwardVelocity;
 	public float gravity;
 
+	//different movement speeds
 	private float speedWalk = 5f;
 	private float speedSneak = 2.5f;
 	private float speedSprint = 7.5f;
@@ -29,10 +30,6 @@ public class MovementSystem : MonoBehaviour {
 	public float currentspeedvertical;
 	public float speedsmoothvelocity1;	//wird gebraucht um die smoothness der Bewegung zu speichern, agiert wie eine Art laufvariable für die Funktion Mathf.SmoothDamp
 	public float speedsmoothvelocity2;
-	public float speedsmoothvelocity3;
-
-	public GameObject cameraHolder;
-	public float campos;
 	
 	private CharacterController cc;
 
@@ -44,7 +41,6 @@ public class MovementSystem : MonoBehaviour {
 		walking = true;
 		wantedHeight = 2;
 		currentHeight = 2;
-		campos = cameraHolder.transform.position.y;
 	}
 	
 	// Update is called once per frame
@@ -73,14 +69,11 @@ public class MovementSystem : MonoBehaviour {
 		//erhöht die geschwindigkeit langsam, was der Bewegung ein smootheres gefühl gibt
 		currentspeedhorizontal = Mathf.SmoothDamp (currentspeedhorizontal , horizontalAxis*moveSpeed, ref speedsmoothvelocity1, rampuptime);
 		currentspeedvertical = Mathf.SmoothDamp (currentspeedvertical , verticalAxis*moveSpeed, ref speedsmoothvelocity2, rampuptime);	
-		//float currentspeedverticalrounded = Mathf.Round(currentspeedvertical*1000)/1000;
-		//float currentspeedhorizontalrounded = Mathf.Round(currentspeedhorizontal*1000)/1000;
-
+		
 		if (cc.height != wantedHeight)
 		{
 			ChangeHeight(wantedHeight);
 		}
-			
 
 		upwardVelocity += Time.deltaTime * gravity;
 		
@@ -116,25 +109,14 @@ public class MovementSystem : MonoBehaviour {
 
 	void ChangeHeight(float newheight)
 	{
-		float center = 1 - newheight / 2;
-		Vector3 deltaheight = cc.center;
-		if (cc.height < wantedHeight)
+		float center = 1 - newheight / 2;	//center wird nach oben geshiftet, damit springen und crouchen einen höheren sprung ermöglichen.
+		if (cc.height < wantedHeight)		//wenn vergrößerung, wird höhe angepasst, dammit man nicht in den Boden glitcht, und die Bewegung smooth ist
 		{
 			transform.position = transform.position + (cc.center - Vector3.Lerp(cc.center, new Vector3(0,center,0),sneakdowntime))*2;
 		}
 		cc.height = Mathf.Lerp(cc.height, newheight, sneakdowntime);
 		cc.center = Vector3.Lerp(cc.center, new Vector3(0,center,0),sneakdowntime);
-		deltaheight -= cc.center;
-		
-		//cameraHolder.transform.position = new Vector3(transform.position.x,transform.position.y + (campos-1) + cc.center.y*2 ,transform.position.z);
-		//cameraHolder.transform.position = Vector3.Lerp(cameraHolder.transform.position, new Vector3(cameraHolder.transform.position.x,campos+center,cameraHolder.transform.position.z),0.1f);
-
-		//transform.position = new Vector3(transform.position.x, 3, transform.position.z);
-		//transform.position = Vector3.Lerp(transform.position, new Vector3(0,center,0),0.1f);
-		//transform.center = Vector3.Lerp(transform.center, new Vector3(0,center,0),0.1f);
-		
-		
-			currentHeight = cc.height;
+		currentHeight = cc.height;
 		
 	}
 
