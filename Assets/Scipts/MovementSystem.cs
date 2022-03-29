@@ -5,14 +5,14 @@ using UnityEngine;
 public class MovementSystem : MonoBehaviour {
 
 	
-	public float jumpHeight;	
+	public float jumpHeight = 1f;	
 	public float upwardVelocity;
 	public float gravity;
 
 	//different movement speeds
-	private float speedWalk = 5f;
-	private float speedSneak = 2.5f;
-	private float speedSprint = 7.5f;
+	public float speedWalk = 5f;
+	public float speedSneak = 2.5f;
+	public float speedSprint = 7.5f;
 
 	public bool walking;
 	public bool sneaking;
@@ -36,7 +36,7 @@ public class MovementSystem : MonoBehaviour {
 	void Start () 
 	{	
 		cc = GetComponent<CharacterController>();	
-		jumpHeight = 1f;
+		//jumpHeight = 1f;
 		gravity = -30f;	
 		walking = true;
 		wantedHeight = 2;
@@ -54,13 +54,19 @@ public class MovementSystem : MonoBehaviour {
 		// Sprint
 		if (Input.GetKeyDown(KeyCode.LeftShift) && !sneaking)
 			StartSprint();   
-        if (Input.GetKeyUp(KeyCode.LeftShift) && sprinting)
-            StartWalk();
+        /*if (Input.GetKeyUp(KeyCode.LeftShift) && sprinting)
+            StartWalk();*/
 		// Sneak
 		if (Input.GetKeyDown(KeyCode.LeftControl) && !sprinting)
  			StartSneak();
-        if (Input.GetKeyUp(KeyCode.LeftControl) && sneaking)
+		if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift) && (sneaking || sprinting))
 			StartWalk();
+        /*if (Input.GetKeyUp(KeyCode.LeftControl) && sneaking)
+			StartWalk();*/
+			
+		//Debug.DrawRay(transform.position+(Vector3.up*0.2f) , Vector3.up * 1.6f, Color.blue);
+		//transform.position + (Vector3.up*0.1f),  Vector3.up, 1.4f)
+		//Physics.Raycast(transform.position + (Vector3.up*0.1f),  (Vector3.up*0.1f))
             
 	}
 
@@ -87,11 +93,15 @@ public class MovementSystem : MonoBehaviour {
     {
 		walking = false;
 		sprinting = true;
+		wantedHeight = 1.8f;
         moveSpeed = speedSprint;
     }
 
     void StartWalk()
     {
+		if(sneaking && Physics.Raycast(transform.position + (Vector3.up*0.2f),  Vector3.up, 1.6f))
+			return;
+
 		walking = true;
 		sneaking = false;
 		sprinting = false;
