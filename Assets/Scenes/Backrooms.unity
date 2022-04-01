@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -606,6 +606,7 @@ GameObject:
   - component: {fileID: 290463409}
   - component: {fileID: 290463408}
   - component: {fileID: 290463407}
+  - component: {fileID: 290463414}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -670,26 +671,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f729d4f54d22f64a8f0fae3b3b1f2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 1
-  upwardVelocity: 0
-  gravity: 0
-  speedWalk: 5
-  speedSneak: 2.5
-  speedSprint: 7.5
   walking: 0
   sneaking: 0
   sprinting: 0
-  wantedHeight: 0
-  currentHeight: 0
-  moveSpeed: 5
-  rampuptime: 0.1
-  sneakdowntime: 0.2
-  verticalAxis: 0
-  horizontalAxis: 0
-  currentspeedhorizontal: 0
-  currentspeedvertical: 0
-  speedsmoothvelocity1: 0
-  speedsmoothvelocity2: 0
 --- !u!23 &290463411
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -754,6 +738,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &290463414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 290463406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559e18b441fbb2e4b83fde5e49becd36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpKey: 32
+  sprintKey: 304
+  sneakKey: 306
+  throwKey: 99
 --- !u!1 &295011989 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8460830717458168429, guid: 46bfceb6dc353ca4a8e055712bfada22, type: 3}
