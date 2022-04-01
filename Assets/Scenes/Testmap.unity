@@ -842,6 +842,7 @@ GameObject:
   - component: {fileID: 390065494}
   - component: {fileID: 390065499}
   - component: {fileID: 390065500}
+  - component: {fileID: 390065501}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -879,26 +880,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f729d4f54d22f64a8f0fae3b3b1f2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpHeight: 1
-  upwardVelocity: 0
-  gravity: 0
-  speedWalk: 5
-  speedSneak: 2.5
-  speedSprint: 7.5
   walking: 0
   sneaking: 0
   sprinting: 0
-  wantedHeight: 0
-  currentHeight: 0
-  moveSpeed: 5
-  rampuptime: 0.1
-  sneakdowntime: 0.2
-  verticalAxis: 0
-  horizontalAxis: 0
-  currentspeedhorizontal: 0
-  currentspeedvertical: 0
-  speedsmoothvelocity1: 0
-  speedsmoothvelocity2: 0
 --- !u!23 &390065496
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -990,6 +974,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hasIC: 0
   icParts: 0
+--- !u!114 &390065501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390065493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 559e18b441fbb2e4b83fde5e49becd36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpKey: 32
+  sprintKey: 304
+  sneakKey: 306
+  throwKey: 99
 --- !u!1 &472545739
 GameObject:
   m_ObjectHideFlags: 0

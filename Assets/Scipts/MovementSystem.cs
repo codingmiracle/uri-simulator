@@ -2,42 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovementSystem : MonoBehaviour {
-
+public class MovementSystem : MonoBehaviour 
+{
 	
-	public float jumpHeight = 1f;	
-	public float upwardVelocity;
-	public float gravity;
+	private float jumpHeight = 1f;	
+	private float upwardVelocity;
+	private float gravity = -30f;
 
 	//different movement speeds
-	public float speedWalk = 5f;
-	public float speedSneak = 2.5f;
-	public float speedSprint = 7.5f;
+	private float speedWalk = 5f;
+	private float speedSneak = 2.5f;
+	private float speedSprint = 7.5f;
 
 	public bool walking;
 	public bool sneaking;
 	public bool sprinting;
 
-	public float wantedHeight;
-	public float currentHeight;
+	private float wantedHeight;
+	private float currentHeight;
 
-	public float moveSpeed = 5f;
-	public float rampuptime = 0.1f;
-	public float sneakdowntime = 0.15f;
-	public float verticalAxis;
-	public float horizontalAxis;
-	public float currentspeedhorizontal;
-	public float currentspeedvertical;
-	public float speedsmoothvelocity1;	//wird gebraucht um die smoothness der Bewegung zu speichern, agiert wie eine Art laufvariable für die Funktion Mathf.SmoothDamp
-	public float speedsmoothvelocity2;
+	private float moveSpeed = 5f;
+	private float rampuptime = 0.1f;
+	private float sneakdowntime = 0.15f;
+	private float verticalAxis;
+	private float horizontalAxis;
+	private float currentspeedhorizontal;
+	private float currentspeedvertical;
+	private float speedsmoothvelocity1;	//wird gebraucht um die smoothness der Bewegung zu speichern, agiert wie eine Art laufvariable für die Funktion Mathf.SmoothDamp
+	private float speedsmoothvelocity2;
 	
 	private CharacterController cc;
+	private Keybinds k;
 
 	void Start () 
 	{	
-		cc = GetComponent<CharacterController>();	
-		//jumpHeight = 1f;
-		gravity = -30f;	
+		cc = GetComponent<CharacterController>();
+		k = GameObject.FindObjectOfType<Keybinds> ();	
 		walking = true;
 		wantedHeight = 2;
 		currentHeight = 2;
@@ -49,17 +49,17 @@ public class MovementSystem : MonoBehaviour {
 		verticalAxis = Input.GetAxisRaw("Vertical");
 		horizontalAxis = Input.GetAxisRaw("Horizontal");
 		// Jump
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(k.jumpKey))
 			Jump();
 		// Sprint
-		if (Input.GetKeyDown(KeyCode.LeftShift) && !sneaking)
+		if (Input.GetKeyDown(k.sprintKey) && !sneaking)
 			StartSprint();   
         /*if (Input.GetKeyUp(KeyCode.LeftShift) && sprinting)
             StartWalk();*/
 		// Sneak
-		if (Input.GetKeyDown(KeyCode.LeftControl) && !sprinting)
+		if (Input.GetKeyDown(k.sneakKey) && !sprinting)
  			StartSneak();
-		if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftShift) && (sneaking || sprinting))
+		if (!Input.GetKey(k.sprintKey) && !Input.GetKey(k.sneakKey) && (sneaking || sprinting))
 			StartWalk();
         /*if (Input.GetKeyUp(KeyCode.LeftControl) && sneaking)
 			StartWalk();*/
@@ -140,3 +140,4 @@ public class MovementSystem : MonoBehaviour {
 	}
 
 }
+
